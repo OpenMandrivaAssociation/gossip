@@ -24,7 +24,6 @@ BuildRequires: iso-codes
 BuildRequires: scrollkeeper
 BuildRequires: gnome-doc-utils
 BuildRequires: perl-XML-Parser
-BuildRequires: ImageMagick
 BuildRequires: desktop-file-utils
 Requires(post):	scrollkeeper
 Requires(postun):scrollkeeper
@@ -51,30 +50,12 @@ for omf in %buildroot%_datadir/omf/*/*-??.omf;do
 echo "%lang($(basename $omf|sed -e s/.*-// -e s/.omf//)) $(echo $omf|sed s!%buildroot!!)" >> %name.lang
 done
 
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
-cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
-?package(%{name}): \
-	command="%{_bindir}/%{name}"\
-	needs="X11"\
-	section="Internet/Instant Messaging"\
-	icon="gossip.png"\
-	title="Gossip"\
-	longtitle="Jabber Instant Messaging" \
-	startup_notify="true" \
-	xdg="true"
-EOF
-
 desktop-file-install --vendor="" \
   --remove-category="Application" \
   --add-category="GTK" \
   --add-category="GNOME" \
   --add-category="X-MandrivaLinux-Internet-InstantMessaging" \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
-
-mkdir -p %buildroot{%_liconsdir,%_miconsdir}
-ln -s %{_datadir}/icons/hicolor/48x48/apps/%name.png %buildroot%_liconsdir/
-convert -scale 32 ui/pixmaps/%name.png %buildroot%_iconsdir/%name.png
-convert -scale 16 ui/pixmaps/%name.png %buildroot%_miconsdir/%name.png
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -83,7 +64,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %post_install_gconf_schemas %{schemas}
-%{update_menus}
 %{update_scrollkeeper}
 %update_icon_cache hicolor
 
@@ -91,7 +71,6 @@ rm -rf $RPM_BUILD_ROOT
 %preun_uninstall_gconf_schemas %{schemas}
 
 %postun
-%{clean_menus}
 %{clean_scrollkeeper}
 %clean_icon_cache hicolor
 
@@ -107,9 +86,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gossip
 %{_datadir}/sounds/gossip
 %_datadir/icons/hicolor/*/apps/*
-%{_menudir}/*
 %dir %{_datadir}/omf/gossip
 %{_datadir}/omf/gossip/gossip-C.omf
-%_liconsdir/%name.png
-%_iconsdir/%name.png
-%_miconsdir/%name.png
