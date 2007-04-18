@@ -2,7 +2,7 @@
 
 Summary: GNOME Jabber client
 Name: gossip
-Version: 0.23
+Version: 0.24
 Release: %mkrel 1
 License: GPL
 Group: Networking/Instant messaging
@@ -22,7 +22,7 @@ BuildRequires: gnome-panel-devel
 BuildRequires: libaspell-devel
 BuildRequires: iso-codes
 BuildRequires: scrollkeeper
-BuildRequires: gnome-doc-utils libxslt-proc
+BuildRequires: gnome-doc-utils
 BuildRequires: perl-XML-Parser
 BuildRequires: ImageMagick
 BuildRequires: desktop-file-utils
@@ -113,5 +113,3 @@ rm -rf $RPM_BUILD_ROOT
 %_liconsdir/%name.png
 %_iconsdir/%name.png
 %_miconsdir/%name.png
-
-
