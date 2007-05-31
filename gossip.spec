@@ -1,8 +1,8 @@
-%define req_loudmouth_version 1.0
+%define req_loudmouth_version 1.2.2
 
 Summary: GNOME Jabber client
 Name: gossip
-Version: 0.24
+Version: 0.26
 Release: %mkrel 1
 License: GPL
 Group: Networking/Instant messaging
@@ -19,6 +19,7 @@ BuildRequires: dbus-glib-devel
 BuildRequires: libnotify-devel
 BuildRequires: libgalago-devel
 BuildRequires: gnome-panel-devel
+BuildRequires: libxrender-devel
 BuildRequires: libaspell-devel
 BuildRequires: iso-codes
 BuildRequires: scrollkeeper
