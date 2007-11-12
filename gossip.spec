@@ -2,7 +2,7 @@
 
 Summary: GNOME Jabber client
 Name: gossip
-Version: 0.27
+Version: 0.28
 Release: %mkrel 1
 License: GPL
 Group: Networking/Instant messaging
@@ -55,21 +55,18 @@ desktop-file-install --vendor="" \
   --remove-category="Application" \
   --add-category="GTK" \
   --add-category="GNOME" \
-  --add-category="X-MandrivaLinux-Internet-InstantMessaging" \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%define schemas gossip
-
 %post
-%post_install_gconf_schemas %{schemas}
+%post_install_gconf_schemas %{name}
 %{update_scrollkeeper}
 %update_icon_cache hicolor
 
 %preun
-%preun_uninstall_gconf_schemas %{schemas}
+%preun_uninstall_gconf_schemas %{name}
 
 %postun
 %{clean_scrollkeeper}
