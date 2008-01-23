@@ -3,8 +3,8 @@
 Summary: GNOME Jabber client
 Name: gossip
 Version: 0.28
-Release: %mkrel 1
-License: GPL
+Release: %mkrel 2
+License: GPLv2+
 Group: Networking/Instant messaging
 URL: http://www.imendio.com/projects/gossip/
 Source0: ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
