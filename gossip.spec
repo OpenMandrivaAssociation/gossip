@@ -2,15 +2,12 @@
 
 Summary: GNOME Jabber client
 Name: gossip
-Version: 0.28
-Release: %mkrel 3
+Version: 0.29
+Release: %mkrel 1
 License: GPLv2+
 Group: Networking/Instant messaging
 URL: http://www.imendio.com/projects/gossip/
 Source0: ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
-# (fc) 0.28-3mdv ensure offline contacts are not displayed when contacts are offline (SVN)
-Patch0:	gossip-0.28-fixoffline.patch
-
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: loudmouth-devel >= %{req_loudmouth_version}
 BuildRequires: libgnomeui2-devel
@@ -37,7 +34,6 @@ real user friendly way of chatting with their friends.
 
 %prep
 %setup -q
-%patch0 -p1 -b .fixoffline
 
 %build
 %configure2_5x
