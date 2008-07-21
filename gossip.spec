@@ -6,7 +6,7 @@ Version: 0.30
 Release: %mkrel 1
 License: GPLv2+
 Group: Networking/Instant messaging
-URL: http://www.imendio.com/projects/gossip/
+URL: http://developer.imendio.com/projects/gossip
 Source0: ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: loudmouth-devel >= %{req_loudmouth_version}
