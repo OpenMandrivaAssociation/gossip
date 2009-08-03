@@ -6,8 +6,9 @@ Version: 0.31
 Release: %mkrel 1
 License: GPLv2+
 Group: Networking/Instant messaging
-URL: http://developer.imendio.com/projects/gossip
+URL: http://live.gnome.org/Gossip/
 Source0: ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
+Patch: gossip-0.31-format-strings.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: loudmouth-devel >= %{req_loudmouth_version}
 BuildRequires: libgnomeui2-devel
@@ -34,6 +35,7 @@ real user friendly way of chatting with their friends.
 
 %prep
 %setup -q
+%patch -p1
 
 %build
 %configure2_5x
