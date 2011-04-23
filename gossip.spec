@@ -3,15 +3,17 @@
 Summary: GNOME Jabber client
 Name: gossip
 Version: 0.31
-Release: %mkrel 1
+Release: %mkrel 2
 License: GPLv2+
 Group: Networking/Instant messaging
 URL: http://live.gnome.org/Gossip/
 Source0: ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
-Patch: gossip-0.31-format-strings.patch
+Patch0: gossip-0.31-format-strings.patch
+Patch1: gossip-0.31-libnotify0.7.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: loudmouth-devel >= %{req_loudmouth_version}
 BuildRequires: libgnomeui2-devel
+BuildRequires: libx11-devel
 BuildRequires: libxscrnsaver-devel
 BuildRequires: libxslt-devel
 BuildRequires: libglade2.0-devel
@@ -26,8 +28,6 @@ BuildRequires: scrollkeeper
 BuildRequires: gnome-doc-utils
 BuildRequires: intltool
 BuildRequires: desktop-file-utils
-Requires(post):	scrollkeeper
-Requires(postun):scrollkeeper
 
 %description
 Gossip aims at making Jabber easy to use and tries to give GNOME users a
@@ -35,7 +35,8 @@ real user friendly way of chatting with their friends.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1 -b .str
+%patch1 -p0 -b .libnotify
 
 %build
 %configure2_5x
