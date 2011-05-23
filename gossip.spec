@@ -3,7 +3,7 @@
 Summary: GNOME Jabber client
 Name: gossip
 Version: 0.31
-Release: %mkrel 2
+Release: %mkrel 3
 License: GPLv2+
 Group: Networking/Instant messaging
 URL: http://live.gnome.org/Gossip/
