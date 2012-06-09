@@ -25,7 +25,7 @@ BuildRequires: libxrender-devel
 BuildRequires: libaspell-devel
 BuildRequires: iso-codes
 BuildRequires: scrollkeeper
-BuildRequires: gnome-doc-utils
+BuildRequires: gnome-doc-utils >= 0.3.2
 BuildRequires: intltool
 BuildRequires: desktop-file-utils
 
