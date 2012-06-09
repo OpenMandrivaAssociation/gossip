@@ -52,6 +52,8 @@ rm -rf $RPM_BUILD_ROOT
 for omf in %buildroot%_datadir/omf/*/*-??.omf;do
 echo "%lang($(basename $omf|sed -e s/.*-// -e s/.omf//)) $(echo $omf|sed s!%buildroot!!)" >> %name.lang
 done
+cat %name.lang |sort |uniq >%name.langg
+mv -f %name.langg %name.lang
 
 desktop-file-install --vendor="" \
   --remove-category="Application" \
@@ -80,11 +82,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/sound/events/*
 %{_sysconfdir}/gconf/schemas/*
 %{_bindir}/*
-%_libexecdir/*applet
-%_libdir/bonobo/servers/GNOME_Peekaboo_Applet.server
+%optional %_libexecdir/*applet
+%optional %_libdir/bonobo/servers/GNOME_Peekaboo_Applet.server
 %{_datadir}/applications/*
 %{_datadir}/gossip
 %{_datadir}/sounds/gossip
 %_datadir/icons/hicolor/*/apps/*
-%dir %{_datadir}/omf/gossip
-%{_datadir}/omf/gossip/gossip-C.omf
