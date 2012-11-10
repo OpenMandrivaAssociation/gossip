@@ -1,0 +1,79 @@
+--- gossip-0.31/libloudermouth/lm-bs-transfer.c.str	2008-05-23 09:41:49.000000000 +0200
++++ gossip-0.31/libloudermouth/lm-bs-transfer.c	2011-04-23 07:13:41.000000000 +0200
+@@ -426,7 +426,7 @@
+ {
+ 	GError *error;
+ 
+-	error = g_error_new (lm_error_quark (),
++	error = g_error_new_literal (lm_error_quark (),
+ 			     LM_BS_TRANSFER_ERROR_UNABLE_TO_CONNECT,
+ 			     error_msg);
+ 	lm_bs_transfer_error (transfer, error);
+--- gossip-0.31/src/gossip-account-widget-jabber.c.str	2008-05-08 09:48:16.000000000 +0200
++++ gossip-0.31/src/gossip-account-widget-jabber.c	2011-04-23 07:15:27.000000000 +0200
+@@ -762,21 +762,21 @@
+ 					     GTK_DIALOG_MODAL,
+ 					     GTK_MESSAGE_INFO,
+ 					     GTK_BUTTONS_CLOSE,
+-					     str);
++					     "%s", str);
+ 
+ 		str = _("You should now be able to connect to your new account.");
+-		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (md), str);
++		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (md), "%s", str);
+ 	} else {
+ 		str = _("Failed to register your new account settings.");
+ 		md = gtk_message_dialog_new (GTK_WINDOW (toplevel),
+ 					     GTK_DIALOG_MODAL,
+ 					     GTK_MESSAGE_ERROR,
+ 					     GTK_BUTTONS_CLOSE,
+-					     str);
++					     "%s", str);
+ 		
+ 		if (error && error->message) {
+ 			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (md),
+-								  error->message);
++								  "%s", error->message);
+ 		}
+ 	}
+ 
+@@ -820,9 +820,10 @@
+ 					     GTK_DIALOG_MODAL,
+ 					     GTK_MESSAGE_INFO,
+ 					     GTK_BUTTONS_CLOSE,
++					     "%s",
+ 					     msg1);
+ 		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (md),
+-							  msg2);
++							  "%s",msg2);
+ 
+ 		g_signal_connect_swapped (md, "response", 
+ 					  G_CALLBACK (gtk_widget_destroy),
+--- gossip-0.31/src/gossip-change-password-dialog.c.str	2008-05-08 09:48:16.000000000 +0200
++++ gossip-0.31/src/gossip-change-password-dialog.c	2011-04-23 07:13:41.000000000 +0200
+@@ -86,21 +86,21 @@
+ 					     GTK_DIALOG_MODAL,
+ 					     GTK_MESSAGE_INFO,
+ 					     GTK_BUTTONS_CLOSE,
+-					     str);
++					     "%s", str);
+ 
+ 		str = _("You should now be able to connect with your new password.");
+-		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (md), str);
++		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (md), "%s", str);
+ 	} else {
+ 		str = _("Failed to change your account password.");
+ 		md = gtk_message_dialog_new (NULL,
+ 					     GTK_DIALOG_MODAL,
+ 					     GTK_MESSAGE_ERROR,
+ 					     GTK_BUTTONS_CLOSE,
+-					     str);
++					     "%s", str);
+ 		
+ 		if (error && error->message) {
+ 			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (md),
+-								  error->message);
++								  "%s", error->message);
+ 		}
+ 	}
+ 

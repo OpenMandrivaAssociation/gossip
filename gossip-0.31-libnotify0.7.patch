@@ -1,0 +1,133 @@
+--- src/gossip-notify.c.libnotify	2011-04-23 06:58:12.000000000 +0200
++++ src/gossip-notify.c	2011-04-23 07:10:24.000000000 +0200
+@@ -59,6 +59,9 @@
+  * gone online/offline, so we don't spam the sound with online's, etc
+  */
+ #define NOTIFY_WAIT_TIME         10000
++#ifndef NOTIFY_CHECK_VERSION
++#define NOTIFY_CHECK_VERSION(x,y,z) 0
++#endif
+ 
+ static const gchar *       notify_get_default_status_from_presence (GossipPresence     *presence);
+ static gboolean            notify_get_is_busy                      (void);
+@@ -225,7 +228,11 @@
+ 					gossip_contact_get_name (contact),
+ 					notify_get_default_status_from_presence (presence));
+ 
++#if NOTIFY_CHECK_VERSION (0, 7, 0)
++	notify = notify_notification_new (_("Contact Online"), body, NULL);
++#else
+ 	notify = notify_notification_new (_("Contact Online"), body, NULL, NULL);
++#endif
+ 	notify_notification_set_urgency (notify, NOTIFY_URGENCY_LOW);
+ 	notify_notification_set_icon_from_pixbuf (notify, pixbuf);
+ 
+@@ -234,9 +241,11 @@
+ 			  G_CALLBACK (notify_closed_cb),
+ 			  NULL);
+ 
++#if !NOTIFY_CHECK_VERSION (0, 7, 0)
+ 	if (attach_status_icon) {
+ 		notify_notification_attach_to_status_icon (notify, attach_status_icon);
+ 	}
++#endif
+ 
+ 	notify_notification_add_action (notify, "default", _("Default"),
+ 					(NotifyActionCallback) notify_online_action_cb,
+@@ -328,15 +337,23 @@
+ 						     GTK_ICON_SIZE_MENU);
+ 	}
+ 
++#if NOTIFY_CHECK_VERSION (0, 7, 0)
++	notify = notify_notification_new (_("Subscription Request"),
++					  message,
++					  NULL);
++#else	
+ 	notify = notify_notification_new (_("Subscription Request"),
+ 					  message,
+ 					  NULL,
+ 					  NULL);
++#endif
+ 	g_free (message);
+ 
++#if !NOTIFY_CHECK_VERSION (0, 7, 0)
+ 	if (attach_status_icon) {
+ 		notify_notification_attach_to_status_icon (notify, attach_status_icon);
+ 	}
++#endif
+ 
+ 	notify_notification_set_urgency (notify, NOTIFY_URGENCY_NORMAL);
+ 	notify_notification_set_timeout (notify, NOTIFY_SUBSCRIPTION_TIME);
+@@ -375,16 +392,24 @@
+ 	notification_body = g_markup_printf_escaped (_("%s would like to send you “%s”"),
+ 						     gossip_contact_get_name (gossip_ft_get_contact (ft)),
+ 						     gossip_ft_get_file_name (ft));
++#if NOTIFY_CHECK_VERSION (0, 7, 0)
++	notification = notify_notification_new (_("File Transfer"),
++						notification_body,
++						NULL);
++#else
+ 	notification = notify_notification_new (_("File Transfer"),
+ 					  	notification_body,
+ 					  	NULL,
+ 					  	NULL);
++#endif
+ 
+ 	g_free (notification_body);
+ 	
++#if !NOTIFY_CHECK_VERSION (0, 7, 0)
+ 	if (attach_status_icon) {
+ 		notify_notification_attach_to_status_icon (notification, attach_status_icon);
+ 	}
++#endif
+ 
+ 	notify_notification_set_urgency (notification, NOTIFY_URGENCY_NORMAL);
+ 
+@@ -546,7 +571,11 @@
+ 		str = g_markup_printf_escaped (_("“%s”"), body_stripped);
+ 	}
+ 
++#if NOTIFY_CHECK_VERSION (0, 7, 0)
++	notify = notify_notification_new (title, str, NULL);
++#else
+ 	notify = notify_notification_new (title, str, NULL, NULL);
++#endif
+ 	notify_notification_set_urgency (notify, NOTIFY_URGENCY_NORMAL);
+ 	notify_notification_set_icon_from_pixbuf (notify, pixbuf);
+ 	notify_notification_set_timeout (notify, NOTIFY_MESSAGE_TIME);
+@@ -556,9 +585,11 @@
+ 			  G_CALLBACK (notify_closed_cb),
+ 			  NULL);
+ 
++#if !NOTIFY_CHECK_VERSION (0, 7, 0)
+ 	if (attach_status_icon) {
+ 		notify_notification_attach_to_status_icon (notify, attach_status_icon);
+ 	}
++#endif
+ 
+ 	notify_notification_add_action (notify, "default", _("Default"),
+ 					(NotifyActionCallback) notify_new_message_default_cb,
+@@ -901,7 +932,11 @@
+ 		return FALSE;
+ 	}
+ 
++#if NOTIFY_CHECK_VERSION (0, 7, 0)
++	notify = notify_notification_new (summary, message, NULL);
++#else
+ 	notify = notify_notification_new (summary, message, NULL, NULL);
++#endif
+ 	g_object_set_data_full (G_OBJECT (notify), "conf_path", g_strdup (conf_path), g_free);
+ 	g_object_set_data (G_OBJECT (notify), "func", func);
+ 	g_signal_connect (notify,
+@@ -909,9 +944,11 @@
+ 			  G_CALLBACK (notify_hint_closed_cb),
+ 			  user_data);
+ 
++#if !NOTIFY_CHECK_VERSION (0, 7, 0)
+ 	if (attach_status_icon) {
+ 		notify_notification_attach_to_status_icon (notify, attach_status_icon);
+ 	}
++#endif
+ 
+ 	if (!notify_notification_show (notify, &error)) {
+ 		g_warning ("Failed to send notification: %s",
