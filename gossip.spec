@@ -21,7 +21,7 @@ BuildRequires: pkgconfig(libnotify)
 BuildRequires: pkgconfig(libgalago)
 BuildRequires: gnome-panel-devel
 BuildRequires: pkgconfig(xrender)
-BuildRequires: libaspell-devel
+BuildRequires: aspell-devel
 BuildRequires: iso-codes
 BuildRequires: scrollkeeper
 BuildRequires: pkgconfig(gnome-doc-utils)
