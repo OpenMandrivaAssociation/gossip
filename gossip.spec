@@ -53,17 +53,8 @@ desktop-file-install --vendor="" \
   --add-category="GNOME" \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
 
-%post
-%post_install_gconf_schemas %{name}
-%{update_scrollkeeper}
-%update_icon_cache hicolor
-
 %preun
 %preun_uninstall_gconf_schemas %{name}
-
-%postun
-%{clean_scrollkeeper}
-%clean_icon_cache hicolor
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
