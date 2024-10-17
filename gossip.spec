@@ -6,7 +6,7 @@ Version: 0.31
 Release: 3
 License: GPLv2+
 Group: Networking/Instant messaging
-URL: http://live.gnome.org/Gossip/
+URL: https://live.gnome.org/Gossip/
 Source0: ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
 Patch0: gossip-0.31-format-strings.patch
 Patch1: gossip-0.31-libnotify0.7.patch
